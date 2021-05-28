@@ -1,0 +1,10 @@
+.contenedor {
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    margin:1rem auto;
+    max-width: 600px;
+  } 
+  .elemento{
+    width:25%;
+  }

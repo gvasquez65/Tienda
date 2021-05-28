@@ -1,0 +1,57 @@
+
+<form>
+  <div class="contenedor">
+    <div class="elemento">
+      <!-- <h4>mat-select</h4> -->
+      <mat-form-field appearance="fill">
+        <mat-label>Favorite food</mat-label>
+        <mat-select [(ngModel)]="selectedValue" name="food">
+          <mat-option *ngFor="let food of foods" [value]="food.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <p> Selected food: {{selectedValue}} </p>
+    </div>
+    <div class="elemento">2</div>
+    <div class="elemento">3</div>
+    <div class="elemento">
+            <!-- <h4>native html select</h4> -->
+  <mat-form-field appearance="fill">
+    <mat-label>Favorite car</mat-label>
+    <select matNativeControl [(ngModel)]="selectedCar" name="car">
+      <option value="" selected></option>
+      <option *ngFor="let car of cars" [value]="car.value">
+        {{car.viewValue}}
+      </option>
+    </select>
+  </mat-form-field>
+  <p> Selected car: {{selectedCar}} </p>
+  </div>
+   
+    
+    <div class="elemento">5</div>
+    <div class="elemento">6
+
+      <!-- <mat-selection-list #list (selectionChange)="selectionChange($event.option)">
+        <mat-list-option
+          *ngFor="let aser of fo; let i = index"
+          (click)="onAreaListControlChanged(aser.ID, aser.Name, aser.Number, $event)"
+          checkboxPosition="before"
+          [value]="aser.Number"
+          [selected]="aser.selected"
+        >
+          <span style="font-size:11px"
+            >{{ aser.selected }} {{ aser.first }} - {{ aser.Number }}</span
+          >
+        </mat-list-option>
+      </mat-selection-list> -->
+    </div>
+    <div class="elemento">7</div>
+</div>
+
+  
+</form>
+
+
+   

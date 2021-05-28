@@ -1,0 +1,26 @@
+<mat-sidenav-container class="container">
+  <!-- side-nav -->
+  <mat-sidenav mode="side" opened class="sidenav">
+    <mat-toolbar class="toolbar">LEONISA</mat-toolbar>
+    <!-- Elements list menu -->
+    <mat-list>
+      <mat-list-item *ngFor="let item of links"> 
+        <a matLine [routerLink]="item.url">{{ item.name }}</a>
+      </mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+  <!-- side-nav-content -->
+  <mat-sidenav-content>
+    <mat-toolbar class="toolbar">
+      <mat-toolbar-row>
+        <span>Interfaz Tiendas </span>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="container-page">
+      <!-- <button (click)="getAllTasks()">Todas las Tareas</button> -->
+
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

@@ -1,0 +1,73 @@
+  <h2>Formulario</h2>
+  <!-- {{paises | json}} -->
+  <div class="contenedor">
+    <div class="elemento">
+      <mat-form-field appearance="fill">
+        <!-- <mat-form-field class="mid-width"> -->
+          <mat-label>Pais</mat-label>
+          <mat-select [(value)]="nombrepais" placeholder="Seleccione un pais" [(ngModel)]="paisSeleccionado"  name="item">
+            <mat-option *ngFor="let item of paises" [value]="item.IdPais">    
+                {{item.Descripcion}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>  
+        <p>{{nombrepais}}</p>
+        <h3>Pais seleccionado -> {{paisSeleccionado}}</h3> 
+    </div>
+    <div class="elemento">
+      <mat-form-field appearance="fill">
+        <mat-label>Formatos</mat-label>
+        <mat-select [(ngModel)]="formatosElejidos" [formControl]="formato"  multiple>
+          <mat-select-trigger>
+            {{formato.value ? formato.value[0].Descripcion : ''}}
+            <span *ngIf="formato.value?.length > 1" class="example-additional-selection">
+              (+{{formato.value.length - 1}} {{formato.value?.length === 2 ? 'otro' : 'otros'}})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let item of formatos" [value]="item" (click)="seleccionaFormato(item)">
+            {{item.Descripcion}}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>  
+      <!-- <h3>Formato seleccionado => {{formatosElejidos}}</h3>   -->
+      <p *ngFor="let dato of formatosElejidos" >
+        {{dato.Descripcion}} {{dato.IdFormato}}
+      </p>
+    
+    </div>
+    <div class ="elemento">
+      <mat-form-field appearance="fill">
+          <mat-label>Tiendas</mat-label>
+          <mat-select [(ngModel)]="tiendasElejidas" [formControl]="tienda" multiple>
+            <mat-select-trigger>
+              {{tienda.value ? tienda.value[0].Nombre : ''}}
+              <span *ngIf="tienda.value?.length > 1" class="example-additional-selection">
+                (+{{tienda.value.length - 1}} {{tienda.value?.length === 2 ? 'otro' : 'otros'}})
+              </span>
+            </mat-select-trigger>
+            <mat-option *ngFor="let item of tiendas" [value]="item">
+              {{item.Nombre}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>  
+        <!-- <h3>Formato seleccionado => {{formatosElejidos}}</h3>   -->
+        <p *ngFor="let dato of tiendasElejidas" >
+          {{dato.Nombre}} {{dato.IdAlmacen}} {{dato.IdFormato}}
+        </p>
+    </div>
+
+    <div class="elemento">
+
+      <button (click)= "verTiendas()">
+      Filtrar Tiendas
+
+      </button>
+    
+    </div>
+</div>
+
+  
+  
+  
+  
+ 
