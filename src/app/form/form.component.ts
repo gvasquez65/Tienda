@@ -23,7 +23,7 @@ interface NombrePaises {
 export class FormComponent implements OnInit {
 
   favoriteCountry: string;
-  paisSeleccionado: string;
+  paisSeleccionado: any;
   //nombrepais: string;
   formatoSeleccionado: string;
   formatosElejidos: any;
@@ -63,7 +63,7 @@ export class FormComponent implements OnInit {
 
   async ngOnInit() {
 
-    this.paisSeleccionado= "169";
+    
    // this.nombrepais="Colombia";
     
     
@@ -96,7 +96,7 @@ export class FormComponent implements OnInit {
    //const resultadoT  = await this.tiendaSvc.getTiendas(this.paisSeleccionado);
 
 
-
+   this.paisSeleccionado= 169;
 
 
   }

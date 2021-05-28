@@ -5,13 +5,13 @@
       <mat-form-field appearance="fill">
         <!-- <mat-form-field class="mid-width"> -->
           <mat-label>Pais</mat-label>
-          <mat-select [(value)]="nombrepais" placeholder="Seleccione un pais" [(ngModel)]="paisSeleccionado"  name="item">
+          <mat-select  placeholder="Seleccione un pais" [(ngModel)]="paisSeleccionado"  name="item">
             <mat-option *ngFor="let item of paises" [value]="item.IdPais">    
                 {{item.Descripcion}}
             </mat-option>
           </mat-select>
         </mat-form-field>  
-        <p>{{nombrepais}}</p>
+        <!-- <p>{{nombrepais}}</p> -->
         <h3>Pais seleccionado -> {{paisSeleccionado}}</h3> 
     </div>
     <div class="elemento">
