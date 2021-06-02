@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TaskService } from './services/task.service';
 
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,18 +10,18 @@ import { TaskService } from './services/task.service';
 })
 export class AppComponent {
   links = [
-    {
-      name: "Inicio",
-      url: ""
-    },
-    {
-      name: "Paises",
-      url: "drop"
-    },
-    {
-      name: "Lista",
-      url: "list"
-    },
+    // {
+    //   name: "Inicio",
+    //   url: ""
+    // },
+    // {
+    //   name: "Paises",
+    //   url: "drop"
+    // },
+    // {
+    //   name: "Lista",
+    //   url: "list"
+    // },
     {
       name: "Formulario",
       url: "form"

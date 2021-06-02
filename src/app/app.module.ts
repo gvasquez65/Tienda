@@ -22,6 +22,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DropComponent } from './drop/drop.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
 
 
 
@@ -50,6 +51,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatSelectModule,
     MatCheckboxModule,
     MatFormFieldModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -41,10 +41,10 @@
             <mat-select-trigger>
               {{tienda.value ? tienda.value[0].Nombre : ''}}
               <span *ngIf="tienda.value?.length > 1" class="example-additional-selection">
-                (+{{tienda.value.length - 1}} {{tienda.value?.length === 2 ? 'otro' : 'otros'}})
+                (+{{tienda.value.length - 1}} {{tienda.value?.length === 4 ? 'otro' : 'otros'}})
               </span>
             </mat-select-trigger>
-            <mat-option *ngFor="let item of tiendas" [value]="item">
+            <mat-option *ngFor="let item of tiendas" [value]="item" (click)="seleccionaTienda(item)" >
               {{item.Nombre}}
             </mat-option>
           </mat-select>
@@ -55,12 +55,23 @@
         </p>
     </div>
 
+    
     <div class="elemento">
+      <section>
+        <div class="example-button-row">
+          <button mat-raised-button color="primary" (click)= "verTiendas()">Filtrar</button>
+          <!-- <button mat-flat-button color="accent">Primary</button> -->
+          <!-- <button mat-button color="primary" (click)= "verTiendas()">
+            Filtrar Tiendas
+          </button> -->
 
-      <button (click)= "verTiendas()">
+        </div>
+      </section>
+      
+      <!-- <button (click)= "verTiendas()">
       Filtrar Tiendas
 
-      </button>
+      </button> -->
     
     </div>
 </div>

@@ -9,6 +9,7 @@ import { TiendaService } from '../services/tienda.service';
 import { Tienda } from '../interfaces/tienda';
 
 
+
 interface NombrePaises {
   id: number,
   name: string
@@ -155,6 +156,32 @@ export class FormComponent implements OnInit {
    console.log("Resultado Tiendas");
    console.log(datosT);
    this.tiendas = datosT;
+
+  }
+
+
+  async seleccionaTienda(item: any){
+    //   debugger;
+    const tiendas = [];
+    console.log('Tienda Elejida->', this.tiendasElejidas);
+
+    this.tiendasElejidas.forEach(element => {
+      tiendas.push({"tienda": element.idAlmacen});
+      //console.log('Tienda JSON->', element.idAlmacen);
+    }); 
+    console.log('Tienda JSON->',tiendas);
+
+
+  //   const paisFormatos ={"pais": this.paisSeleccionado,"formatos": formatos}
+  //   console.log('Formato JSON->',formatos);
+  //   console.log('Body JSON->',paisFormatos);
+
+  //   const resultadoT  = await this.tiendaSvc.getTiendas(paisFormatos);
+
+  //   const datosT: Tienda[] = JSON.parse(resultadoT).Table1;
+  //  console.log("Resultado Tiendas");
+  //  console.log(datosT);
+  //  this.tiendas = datosT;
 
   }
   
