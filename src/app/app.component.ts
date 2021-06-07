@@ -9,6 +9,15 @@ import { TaskService } from './services/task.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  // public dataRows = [
+  //   { name: 'Austin', gender: 'Male', company: 'Swimlane' },
+  //   { name: 'Dany', gender: 'Male', company: 'KFC' },
+  //   { name: 'Molly', gender: 'Female', company: 'Burger King' }
+  // ];
+  // public dataColumns = [{ prop: 'name' }, { name: 'Gender' }, { name: 'Company' }];
+
+
   links = [
     // {
     //   name: "Inicio",

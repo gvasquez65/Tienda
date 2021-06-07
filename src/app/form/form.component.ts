@@ -56,6 +56,20 @@ export class FormComponent implements OnInit {
 
   ];
 
+  public columnDefs = [
+    { field: 'orden' },
+    { field: 'almacen' },
+    { field: 'nitprov' },
+    { field: 'precio' }
+  ];
+
+  public rowData = [
+      { orden: '2', almacen: '329', nitprov: 81, precio: 35000 },
+      { orden: '3', almacen: '389', nitprov: 81, precio: 32000 },
+      { orden: '4', almacen: '578', nitprov: 81, precio: 72000 }
+  ];
+
+
   constructor(private paisSvc:PaisService,
     private formatoSvc:FormatoService,
     private tiendaSvc:TiendaService) { 
@@ -98,7 +112,9 @@ export class FormComponent implements OnInit {
 
 
    this.paisSeleccionado= 169;
-
+   
+   console.log("Resultado Columnas");
+   console.log(this.columnDefs);
 
   }
   onSelect(id:any):void {

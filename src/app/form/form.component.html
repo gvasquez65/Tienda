@@ -74,6 +74,81 @@
       </button> -->
     
     </div>
+
+    <div class="elemento">
+        
+      <ngx-datatable class="material"
+        [rows]="rowData"
+        [columnMode]="'force'"
+        [columns]="columnDefs"
+        [headerHeight]="50"
+        [footerHeight]="50"
+       
+        
+        >
+        <ngx-datatable-column name="Orden"></ngx-datatable-column>
+        <ngx-datatable-column name="Almacen"></ngx-datatable-column>
+        <ngx-datatable-column name="Nitprov"></ngx-datatable-column>
+        <ngx-datatable-column name="Precio"></ngx-datatable-column>
+      </ngx-datatable>
+    <!-- <ngx-datatable
+      class="material"
+      columnMode="force"
+      class="bootstrap"
+      style="min-height:400px;">
+    </ngx-datatable> -->
+
+
+      <!-- <ngx-datatable tableClass="table table-striped table-bordered table-hover" 
+        [loadingIndicator]="gridLoadingIndicator"
+      [rows]="rowData"
+      [scrollbarH]="false"
+      [scrollbarV]="true"
+      [selected]="selectedItem"
+      [selectionType]="'single'"
+      [columns]="gridProperties.FilteredColumns"      
+      [data]="data" [options]="options"
+      [rows]="filteredList"
+       [columns]="columnDefs"
+      [footerHeight]="50"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"> -->
+      <!-- <ngx-caption>
+      <div class="row">
+          <div class="col-sm-6 col-xs-6 col-6 ">
+          <b>
+              <i class="fa fa-table" aria-hidden="true"></i>
+              Data Table List
+          </b>
+          </div>
+          <div class="col-sm-6 col-xs-6 col-6  text-right">
+              <button type="button" class="btn btn-primary" (click)="onClickAddBtn()">
+                  <i class="fa fa-plus" aria-hidden="true"></i> Add New Data
+              </button>
+          </div>
+      </div>
+      </ngx-caption>
+  <ng-template #addressTpl let-row let-rowIndex="rowIndex" let-columnValue="columnValue">
+      {{columnValue.city}}, {{columnValue.state}}   
+  </ng-template>
+  <ng-template #actionTpl let-row let-rowIndex="rowIndex" let-columnValue="columnValue">
+      <a href="javascript:void(0)" (click)="edit(row)">Edit</a> | 
+      <a href="javascript:void(0)"  (click)="remove(rowIndex)">Delete</a>
+  </ng-template> -->
+
+<!-- </ngx-datatable> -->
+
+      <!-- <ag-grid-angular
+      style="width: 500px; height: 150px;"
+      class="ag-theme-alpine"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs">
+      </ag-grid-angular> -->
+    </div>
+    
+
+
+
 </div>
 
   
