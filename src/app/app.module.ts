@@ -54,6 +54,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     MatCheckboxModule,
     MatFormFieldModule,
     MatButtonModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
