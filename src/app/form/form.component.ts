@@ -10,6 +10,8 @@ import { Tienda } from '../interfaces/tienda';
 // import { DatatableComponent } from '@swimlane/ngx-datatable/src/components/datatable.component';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { saveAs } from 'file-saver';
+import { PedidosService } from '../services/pedidos.service';
+import { Pedido } from '../interfaces/pedido';
 
 
 
@@ -22,7 +24,7 @@ interface NombrePaises {
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
-  providers: [PaisService,FormatoService,TiendaService]
+  providers: [PaisService,FormatoService,TiendaService,PedidosService]
 })
 export class FormComponent implements OnInit {
 
@@ -43,7 +45,11 @@ export class FormComponent implements OnInit {
   public paises : Pais[];
   public formatos : Formato[];
   public tiendas : Tienda[];
+  public pedidos : Pedido[];
   public labelPosition: 'after';
+  public isDisabled = true;
+  public isDisabledEnvio = true;
+
   
   
   tiendasf: string[] = ['Outlet', 'Tiendas Leonisa', 'Duty Free', 'Zebra', 'Concesion', 'Tienda Basica'];
@@ -68,9 +74,9 @@ export class FormComponent implements OnInit {
   ];
 
   public rowData = [
-      { descripcion: 'ZEBRA', orden: '2', almacen: '329', nitprov: 81, precio: 35000 },
-      { descripcion: 'LEONISA',orden: '3', almacen: '389', nitprov: 81, precio: 32000 },
-      { descripcion: 'LESENSUE',orden: '4', almacen: '578', nitprov: 81, precio: 72000 }
+      { descripcion: 'ZEBRA', numeroorden: '2', almacen: '329', nitprov: 81,fecha:'05/29/2021',idregistro: 'REPOS',codlargo: '1081106 328022301481001',ean:'7703625219156',cantidad: 1,preciofacturacion: '34000',precio: '35000' },
+      { descripcion: 'LEONISA',numeroorden: '3', almacen: '389', nitprov: 81, fecha:'05/29/2021',idregistro: 'REPOS',codlargo: '1081301 328022301481001',ean:'7703625238720',cantidad: 2,preciofacturacion:'34500',precio: '32000' },
+      { descripcion: 'LESENSUE',numeroorden: '4', almacen: '578', nitprov: 81, fecha:'05/29/2021',idregistro: 'REPOS',codlargo: '1081058 367002301481001',ean:'7703625201717',cantidad: 2,preciofacturacion:'73000',precio: '72000' }
   ];
 
 rows =[];
@@ -83,7 +89,8 @@ array=[];
 
   constructor(private paisSvc:PaisService,
     private formatoSvc:FormatoService,
-    private tiendaSvc:TiendaService) { 
+    private tiendaSvc:TiendaService,
+    private pedidoSvc:PedidosService) { 
 
     }
 
@@ -98,6 +105,8 @@ array=[];
    // this.paises = this.paisSvc.getPaises();
 
        // this.paisSvc.getPaises1();
+       this.isDisabled = true;
+
   debugger;
       const resultado  = await this.paisSvc.getPaises1();
       
@@ -142,38 +151,67 @@ array=[];
 
   async verTiendas(){
     debugger
-    this.rows = this.rowData;
+    // this.rows = this.rowData;
+    // this.temp = this.rows;
+
+    const tiendasE = [];
+    
+    this.tiendasElejidas.forEach(element => {
+      tiendasE.push({"tienda": element.idAlmacen});
+      //console.log('Tienda JSON->', element.idAlmacen);
+    }); 
+    console.log('Tienda filtrada JSON->',tiendasE);
+    const jsonT ={"almacenes": tiendasE};
+        //const pedidos = JSON.stringify(jsonT);
+    const Pedidos: any  = jsonT;
+
+    //console.log('Formato JSON->',formatos);
+    console.log('Pedidos JSON ->',Pedidos);
+
+    const resultadoT  = await this.pedidoSvc.getPedidos(Pedidos);
+
+    const datosP: Pedido[] = JSON.parse(resultadoT).Table1;
+   console.log("Resultado Pedidos");
+   console.log(datosP);
+
+   this.pedidos = datosP;
+   console.log("Ped->",this.pedidos);
+
+   //this.tiendas = datosP;
+    this.rows = this.pedidos;
     this.temp = this.rows;
 
+
+    this.isDisabledEnvio = false;
+
     //this.expFile();
-    this.saveFile();
-   
-   // public items: Item[];
+   // this.saveFile();
+       
+
+    //var fs = require('file-system');
+ 
+    // fs.mkdir('1/2/3/4/5', [mode], function(err) {});
+    // fs.mkdirSync('1/2/3/4/5', [mode]);
+    // fs.writeFile('path/test.txt', 'aaa', function(err) {
+    //   console.log('hecho');
+    // })
+
+    // public items: Item[];
 
     //alert(this.formatosElejidos[0].Descripcion)
     //alert(this.formatosElejidos[0].IdFormato)
     //alert(this.formatosElejidos[1].IdFormato)
-  //   debugger;
-
-  //   const formatos = [];
-
-  //   this.formatosElejidos.forEach(element => {
-  //       formatos.push({"formato": element.IdFormato});
-  //   }); 
-
-  //   const paisFormatos ={"pais": this.paisSeleccionado,"formatos": formatos}
-  //   console.log('Formato JSON->',formatos);
-  //   console.log('Body JSON->',paisFormatos);
-
-  //   const resultadoT  = await this.tiendaSvc.getTiendas(paisFormatos);
-
-  //   const datosT: Tienda[] = JSON.parse(resultadoT).Table1;
-  //  console.log("Resultado Tiendas");
-  //  console.log(datosT);
-  //  this.tiendas = datosT;
+   
     
   }
 
+  EnviarPedidos(){
+    const jspedidos = JSON.stringify(this.pedidos);
+    console.log('Pedidos JSON->',jspedidos);
+
+  }
+
+ 
   updateFilter(event: any, col: string) {
 
     const val = event.target.value.toLowerCase();
@@ -188,25 +226,51 @@ array=[];
     const temp = this.temp.filter((d) => {
       const arr = [];
       this.array.forEach(element => {
-        if (element.co === 'id') {
-          arr.push(d.id.toLowerCase().indexOf(element.va) !== -1 || !element.va);
+        if (element.co === 'NumeroOrden') {
+          arr.push(d.NumeroOrden.toString().indexOf(element.va) !== -1 || !element.va);
         }
-        if (element.co === 'descripcion') {
-          arr.push(d.descripcion.toLowerCase().indexOf(element.va) !== -1 || !element.va);
+        if (element.co === 'idAlmacen') {
+          //arr.push(d.idAlmacen.toLowerCase().indexOf(element.va) !== -1 || !element.va);
+          arr.push(d.idAlmacen.toString().indexOf(element.va) !== -1 || !element.va);
         }
-        if (element.co === 'valor') {
-          arr.push(d.valor.toLowerCase().indexOf(element.va) !== -1 || !element.va);
+        if (element.co === 'ID_Registro') {
+          arr.push(d.ID_Registro.toLowerCase().indexOf(element.va) !== -1 || !element.va);
         }
-        if (element.co === 'orden') {
-          arr.push(d.valor.toLowerCase().indexOf(element.va) !== -1 || !element.va);
+        if (element.co === 'NumeroOrden_Aux') {
+          arr.push(d.NumeroOrden_Aux.toLowerCase().indexOf(element.va) !== -1 || !element.va);
         }
+        if (element.co === 'IdPlu') {
+          arr.push(d.IdPlu.toString().indexOf(element.va) !== -1 || !element.va);
+        }
+        if (element.co === 'FechaPedido') {
+          arr.push(d.FechaPedido.toLowerCase().indexOf(element.va) !== -1 || !element.va);
+        }
+        if (element.co === 'Cantidad') {
+          arr.push(d.Cantidad.toString().indexOf(element.va) !== -1 || !element.va);
+        }
+        if (element.co === 'CodigoLargo') {
+          arr.push(d.CodigoLargo.toLowerCase().indexOf(element.va) !== -1 || !element.va);
+        }
+        if (element.co === 'CodigoEAN') {
+          arr.push(d.CodigoEAN.toLowerCase().indexOf(element.va) !== -1 || !element.va);
+        }
+        if (element.co === 'PrecioFacturacion') {
+          arr.push(d.PrecioFacturacion.toLowerCase().indexOf(element.va) !== -1 || !element.va);
+        }
+        if (element.co === 'PrecioPublico') {
+          arr.push(d.PrecioPublico.toLowerCase().indexOf(element.va) !== -1 || !element.va);
+        }
+        
       });
       let resultado = true;
       arr.forEach(element => {
         resultado = resultado && element;
       });
+      
       return resultado;
     });
+    //console.log('Filtro Pedidos->',temp);
+    this.pedidos = temp;
     this.rows = temp;
     this.table.offset = 0;
   }
@@ -214,7 +278,7 @@ array=[];
 
 
   async seleccionaFormato(item: any){
-    //   debugger;
+       debugger;
     const formatos = [];
 
     this.formatosElejidos.forEach(element => {
@@ -246,7 +310,7 @@ array=[];
     }); 
     console.log('Tienda JSON->',tiendas);
 
-
+    this.isDisabled = false;
   //   const paisFormatos ={"pais": this.paisSeleccionado,"formatos": formatos}
   //   console.log('Formato JSON->',formatos);
   //   console.log('Body JSON->',paisFormatos);
@@ -304,8 +368,31 @@ saveFile() {
       new Blob([ArchText], 
                {type: "text/plain;charset=utf-8"});
   saveAs(blob, NomArch);
+
+
+  var reader = new FileReader();
+  reader.addEventListener("loadend", function() {
+     // reader.result contains the contents of blob as a typed array
+  });
+  reader.readAsArrayBuffer(blob);
+  console.log('leer Archivo->',reader);
 }
- 
-  
+
+changeListener($event) : void {
+  this.readThis($event.target);
+}
+
+readThis(inputValue: any) : void {
+  var file:File = inputValue.files[0]; 
+  var myReader:FileReader = new FileReader();
+
+  myReader.onloadend = function(e){
+    // you can perform an action with readed data here
+    console.log('leer Archivo->',myReader.result);
+    //console.log(myReader.result);
+  }
+
+  myReader.readAsText(file);
+}
 
 }

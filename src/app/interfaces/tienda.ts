@@ -1,5 +1,5 @@
 export interface Tienda {
-    IdAlmacen: any;
+    IdAlmacen: string;
     IdPais: number;
     IdFormato: any;
     Nombre: string;

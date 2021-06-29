@@ -1,171 +1,212 @@
-  <h2>Formulario</h2>
-  <!-- {{paises | json}} -->
-  <div class="contenedor">
-    <div class="elemento">
-      <mat-form-field appearance="fill">
-        <!-- <mat-form-field class="mid-width"> -->
-          <mat-label>Pais</mat-label>
-          <mat-select  placeholder="Seleccione un pais" [(ngModel)]="paisSeleccionado"  name="item">
-            <mat-option *ngFor="let item of paises" [value]="item.IdPais">    
-                {{item.Descripcion}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>  
-        <!-- <p>{{nombrepais}}</p> -->
-        <h3>Pais seleccionado -> {{paisSeleccionado}}</h3> 
-    </div>
-    <div class="elemento">
-      <mat-form-field appearance="fill">
-        <mat-label>Formatos</mat-label>
-        <mat-select [(ngModel)]="formatosElejidos" [formControl]="formato"  multiple>
-          <mat-select-trigger>
-            {{formato.value ? formato.value[0].Descripcion : ''}}
-            <span *ngIf="formato.value?.length > 1" class="example-additional-selection">
-              (+{{formato.value.length - 1}} {{formato.value?.length === 2 ? 'otro' : 'otros'}})
-            </span>
-          </mat-select-trigger>
-          <mat-option *ngFor="let item of formatos" [value]="item" (click)="seleccionaFormato(item)">
-            {{item.Descripcion}}
-          </mat-option>
-        </mat-select>
-    </mat-form-field>  
-      <p *ngFor="let dato of formatosElejidos" >
-        {{dato.Descripcion}} {{dato.IdFormato}}
-      </p>
-    
-    </div>
-    <div class ="elemento">
-      <mat-form-field appearance="fill">
-          <mat-label>Tiendas</mat-label>
-          <mat-select [(ngModel)]="tiendasElejidas" [formControl]="tienda" multiple>
-            <mat-select-trigger>
-              {{tienda.value ? tienda.value[0].Nombre : ''}}
-              <span *ngIf="tienda.value?.length > 1" class="example-additional-selection">
-                (+{{tienda.value.length - 1}} {{tienda.value?.length === 4 ? 'otro' : 'otros'}})
-              </span>
-            </mat-select-trigger>
-            <mat-option *ngFor="let item of tiendas" [value]="item" (click)="seleccionaTienda(item)" >
-              {{item.Nombre}}
-            </mat-option>
-          </mat-select>
-      </mat-form-field>  
-        <!-- <h3>Formato seleccionado => {{formatosElejidos}}</h3>   -->
-        <p *ngFor="let dato of tiendasElejidas" >
-          {{dato.Nombre}} {{dato.IdAlmacen}} {{dato.IdFormato}}
-        </p>
-    </div>
+<h2>Formulario</h2>
+<!-- {{paises | json}} -->
+<div class="contenedor">
+  <div class="elemento">
+    <mat-form-field appearance="fill">
+      <!-- <mat-form-field class="mid-width"> -->
+      <mat-label>Pais</mat-label>
+      <mat-select placeholder="Seleccione un pais" [(ngModel)]="paisSeleccionado" name="item">
+        <mat-option *ngFor="let item of paises" [value]="item.IdPais">
+          {{item.Descripcion}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <p>{{nombrepais}}</p> -->
+    <h3>Pais seleccionado -> {{paisSeleccionado}}</h3>
+  </div>
+  <div class="elemento">
+    <mat-form-field appearance="fill">
+      <mat-label>Formatos</mat-label>
+      <mat-select [(ngModel)]="formatosElejidos" [formControl]="formato" multiple>
+        <mat-select-trigger>
+          {{formato.value ? formato.value[0].Descripcion : ''}}
+          <span *ngIf="formato.value?.length > 1" class="example-additional-selection">
+            (+{{formato.value.length - 1}} {{formato.value?.length === 2 ? 'otro' : 'otros'}})
+          </span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let item of formatos" [value]="item" (click)="seleccionaFormato(item)">
+          {{item.Descripcion}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <p *ngFor="let dato of formatosElejidos">
+      {{dato.Descripcion}} {{dato.IdFormato}}
+    </p> -->
 
-    
-    <div class="elemento">
-      <section>
-        <div class="example-button-row">
-          <button mat-raised-button color="primary" (click)= "verTiendas()">Filtrar</button>
-          <!-- <button mat-flat-button color="accent">Primary</button> -->
-          <!-- <button mat-button color="primary" (click)= "verTiendas()">
-            Filtrar Tiendas
-          </button> -->
+  </div>
+  <div class="elemento">
+    <mat-form-field appearance="fill">
+      <mat-label>Tiendas</mat-label>
+      <mat-select [(ngModel)]="tiendasElejidas" [formControl]="tienda" multiple>
+        <mat-select-trigger>
+          {{tienda.value ? tienda.value[0].Nombre : ''}}
+          <span *ngIf="tienda.value?.length > 1" class="example-additional-selection">
+            (+{{tienda.value.length - 1}} {{tienda.value?.length === 4 ? 'otro' : 'otros'}})
+          </span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let item of tiendas" [value]="item" (click)="seleccionaTienda(item)">
+          {{item.Nombre}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <h3>Formato seleccionado => {{formatosElejidos}}</h3>   -->
+    <!-- <p *ngFor="let dato of tiendasElejidas">
+      {{dato.Nombre}} {{dato.IdAlmacen}} {{dato.IdFormato}}
+    </p> -->
+  </div>
 
-        </div>
-      </section>
-      
-      <!-- <button (click)= "verTiendas()">
+
+  <div class="elemento">
+    <section>
+      <div class="example-button-row">
+        <button mat-raised-button color="primary" [disabled]="isDisabled" (click)="verTiendas()">Filtrar </button>
+      </div>
+      <div class="example-button-row">
+        <button mat-flat-button color="accent" [disabled]="isDisabledEnvio" (click)="EnviarPedidos()">Enviar</button>
+        <!-- <input type='file' accept='text/plain' (change)="changeListener($event)"><br> 
+        <img id='output'> -->
+      </div>
+
+    </section>
+
+
+    <!-- <button (click)= "verTiendas()">
       Filtrar Tiendas
 
       </button> -->
-    
-    </div>
 
-    <div class="elemento" *ngIf="rows.length > 0">
-        
-      <ngx-datatable 
-      #table 
-      class="bootstrap" 
-        [rows]="rows"
-        [columnMode]="'force'"
-        [columns]="columnDefs"
-        [headerHeight]="50"
-        [footerHeight]="50"
-        [rowHeight]="40"
-       
-        
-        >
-        <ngx-datatable-column name="Descripción" prop="descripcion" [width]="350">
-          <ng-template let-column="column" ngx-datatable-header-template>
-              <p class="filtroColumnaTitulo">{{column.name}}</p>
-              <input type="text" class="filtroColumnaInput"
-                  (keyup)="updateFilter($event,'descripcion')" />
-          </ng-template>
-          <ng-template let-row="row" ngx-datatable-cell-template>
-              {{ row.descripcion | lowercase }}
-          </ng-template>
-      </ngx-datatable-column>
-        <ngx-datatable-column name="Orden" [width]="300"></ngx-datatable-column>
-        <ngx-datatable-column name="Almacen"[width]="320"></ngx-datatable-column>
-        <ngx-datatable-column name="Nitprov"[width]="300"></ngx-datatable-column>
-        <ngx-datatable-column name="Precio"[width]="300"></ngx-datatable-column>
-      </ngx-datatable>
-    <!-- <ngx-datatable
-      class="material"
-      columnMode="force"
-      class="bootstrap"
-      style="min-height:400px;">
-    </ngx-datatable> -->
-
-
-      <!-- <ngx-datatable tableClass="table table-striped table-bordered table-hover" 
-        [loadingIndicator]="gridLoadingIndicator"
-      [rows]="rowData"
-      [scrollbarH]="false"
-      [scrollbarV]="true"
-      [selected]="selectedItem"
-      [selectionType]="'single'"
-      [columns]="gridProperties.FilteredColumns"      
-      [data]="data" [options]="options"
-      [rows]="filteredList"
-       [columns]="columnDefs"
-      [footerHeight]="50"
-      [rowData]="rowData"
-      [columnDefs]="columnDefs"> -->
-      <!-- <ngx-caption>
-      <div class="row">
-          <div class="col-sm-6 col-xs-6 col-6 ">
-          <b>
-              <i class="fa fa-table" aria-hidden="true"></i>
-              Data Table List
-          </b>
-          </div>
-          <div class="col-sm-6 col-xs-6 col-6  text-right">
-              <button type="button" class="btn btn-primary" (click)="onClickAddBtn()">
-                  <i class="fa fa-plus" aria-hidden="true"></i> Add New Data
-              </button>
-          </div>
-      </div>
-      </ngx-caption>
-  <ng-template #addressTpl let-row let-rowIndex="rowIndex" let-columnValue="columnValue">
-      {{columnValue.city}}, {{columnValue.state}}   
-  </ng-template>
-  <ng-template #actionTpl let-row let-rowIndex="rowIndex" let-columnValue="columnValue">
-      <a href="javascript:void(0)" (click)="edit(row)">Edit</a> | 
-      <a href="javascript:void(0)"  (click)="remove(rowIndex)">Delete</a>
-  </ng-template> -->
-
-<!-- </ngx-datatable> -->
-
-      <!-- <ag-grid-angular
-      style="width: 500px; height: 150px;"
-      class="ag-theme-alpine"
-      [rowData]="rowData"
-      [columnDefs]="columnDefs">
-      </ag-grid-angular> -->
-    </div>
-    
-
+  </div>
 
 
 </div>
 
-  
-  
-  
-  
- 
+<div class="row">
+  <div class="col-sm-12" *ngIf="rows.length > 0">
+
+    <!-- <ngx-datatable #table class="bootstrap" [rows]="rows" [columnMode]="'force'" [columns]="columnDefs" -->
+    <ngx-datatable #table class="bootstrap" [rows]="rows" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+      [rowHeight]="40" [limit]="14">
+      <!-- <ngx-datatable-column name="Nro.Orden" [width]="300" prop='NumeroOrden'></ngx-datatable-column> -->
+      <ngx-datatable-column name="Nro.Orden" prop="NumeroOrden" [width]="300">
+        <ng-template let-column="column" ngx-datatable-header-template>
+          <p class="filtroColumnaTitulo" style="color: darkblue;">{{column.name}}</p>
+          <input type="text" class="filtroColumnaInput" (keyup)="updateFilter($event,'NumeroOrden')" size='10px' />
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.NumeroOrden }}
+        </ng-template>
+      </ngx-datatable-column>
+      <!-- <ngx-datatable-column name="Almacen" [width]="300" prop='idAlmacen'></ngx-datatable-column> -->
+      <ngx-datatable-column name="Almacen" prop="idAlmacen" [width]="300">
+        <ng-template let-column="column" ngx-datatable-header-template>
+          <p class="filtroColumnaTitulo" style="color: darkblue;">{{column.name}}</p>
+          <input type="text" class="filtroColumnaInput" (keyup)="updateFilter($event,'idAlmacen')" size='10px' />
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.idAlmacen }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Nitprov" [width]="250" prop='NitProveedor'>
+        <ng-template let-column="column" ngx-datatable-header-template>
+          <p class="filtroColumnaTitulo" style="color: darkblue;">{{column.name}}</p>
+          <!-- <input type="text" class="filtroColumnaInput" (keyup)="updateFilter($event,'NitProveedor')" size='10px' /> -->
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.NitProveedor }}
+        </ng-template>
+      </ngx-datatable-column>
+      <!-- <ngx-datatable-column name="Fecha" [width]="300" prop='FechaPedido'></ngx-datatable-column> -->
+      <ngx-datatable-column name="Fecha" prop="FechaPedido" [width]="350">
+        <ng-template let-column="column" ngx-datatable-header-template>
+          <p class="filtroColumnaTitulo" style="color: darkblue;">{{column.name}}</p>
+          <input type="text" class="filtroColumnaInput" (keyup)="updateFilter($event,'FechaPedido')" size='15px' />
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.FechaPedido | lowercase }}
+        </ng-template>
+      </ngx-datatable-column>
+      <!-- <ngx-datatable-column name="IdRegistro" [width]="300" prop ='ID_Registro'></ngx-datatable-column> -->
+      <ngx-datatable-column name="Id Registro" prop="ID_Registro" [width]="350">
+        <ng-template let-column="column" ngx-datatable-header-template>
+          <p class="filtroColumnaTitulo" style="color: darkblue;">{{column.name}}</p>
+          <input type="text" class="filtroColumnaInput" (keyup)="updateFilter($event,'ID_Registro')" size='10px' />
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.ID_Registro | lowercase }}
+        </ng-template>
+      </ngx-datatable-column>
+      <!-- <ngx-datatable-column name="NumeroOrden_Aux" [width]="300" prop='NumeroOrden_Aux'></ngx-datatable-column> -->
+      <ngx-datatable-column name="NumeroOrden_Aux" prop="NumeroOrden_Aux" [width]="300">
+        <ng-template let-column="column" ngx-datatable-header-template>
+          <p class="filtroColumnaTitulo" style="color: darkblue;">{{column.name}}</p>
+          <input type="text" class="filtroColumnaInput" (keyup)="updateFilter($event,'NumeroOrden_Aux')" size='10px' />
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.NumeroOrden_Aux | lowercase }}
+        </ng-template>
+      </ngx-datatable-column>
+      <!-- <ngx-datatable-column name="IdPlu" [width]="300" prop='IdPlu'></ngx-datatable-column> -->
+      <ngx-datatable-column name="IdPlu" prop="IdPlu" [width]="300" color='red'>
+        <ng-template let-column="column" ngx-datatable-header-template>
+          <p class="filtroColumnaTitulo" style="color: darkblue;">{{column.name}}</p>
+          <input type="text" class="filtroColumnaInput" (keyup)="updateFilter($event,'IdPlu')" size='6px' />
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.IdPlu }}
+        </ng-template>
+      </ngx-datatable-column>
+      <!-- <ngx-datatable-column name="Codigo largo" [width]="350" prop='CodigoLargo'></ngx-datatable-column> -->
+      <ngx-datatable-column name="Codigo largo" prop="CodigoLargo" [width]="350">
+        <ng-template let-column="column" ngx-datatable-header-template>
+          <p class="filtroColumnaTitulo" style="color: darkblue;">{{column.name}}</p>
+          <input type="text" class="filtroColumnaInput" (keyup)="updateFilter($event,'CodigoLargo')" size='15px' />
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.CodigoLargo | lowercase }}
+        </ng-template>
+      </ngx-datatable-column>
+      <!-- <ngx-datatable-column name="EAN" [width]="340" prop='CodigoEAN'></ngx-datatable-column> -->
+      <ngx-datatable-column name="EAN" prop="CodigoEAN" [width]="350">
+        <ng-template let-column="column" ngx-datatable-header-template>
+          <p class="filtroColumnaTitulo" style="color: darkblue;">{{column.name}}</p>
+          <input type="text" class="filtroColumnaInput" (keyup)="updateFilter($event,'CodigoEAN')" size='15px' />
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.CodigoEAN | lowercase }}
+        </ng-template>
+      </ngx-datatable-column>
+      <!-- <ngx-datatable-column name="Cantidad" [width]="250" prop='Cantidad'></ngx-datatable-column> -->
+      <ngx-datatable-column name="Cantidad" prop="Cantidad" [width]="250">
+        <ng-template let-column="column" ngx-datatable-header-template>
+          <p class="filtroColumnaTitulo" style="color: darkblue;">{{column.name}}</p>
+          <input type="text" class="filtroColumnaInput" (keyup)="updateFilter($event,'Cantidad')" size='5px' />
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.Cantidad }}
+        </ng-template>
+      </ngx-datatable-column>
+      <!-- <ngx-datatable-column name="Preciofacturacion" [width]="300" prop='PrecioFacturacion'></ngx-datatable-column> -->
+      <ngx-datatable-column name="PrecioFacturacion" prop="PrecioFacturacion" [width]="300">
+        <ng-template let-column="column" ngx-datatable-header-template>
+          <p class="filtroColumnaTitulo" style="color: darkblue;">{{column.name}}</p>
+          <input type="text" class="filtroColumnaInput" (keyup)="updateFilter($event,'PrecioFacturacion')"
+            size='10px' />
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.PrecioFacturacion | lowercase }}
+        </ng-template>
+      </ngx-datatable-column>
+      <!-- <ngx-datatable-column name="PrecioPublico" [width]="300" prop='PrecioPublico'></ngx-datatable-column> -->
+      <ngx-datatable-column name="PrecioPublico" prop="PrecioPublico" [width]="300">
+        <ng-template let-column="column" ngx-datatable-header-template>
+          <p class="filtroColumnaTitulo" style="color: darkblue;">{{column.name}}</p>
+          <input type="text" class="filtroColumnaInput" (keyup)="updateFilter($event,'PrecioPublico')" size='10px' />
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row.PrecioPublico | lowercase }}
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+
+  </div>
+</div>
