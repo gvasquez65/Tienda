@@ -24,6 +24,7 @@ import { DropComponent } from './drop/drop.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import {MatDialog} from '@angular/material/dialog';
 
 
 
@@ -54,7 +55,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     MatCheckboxModule,
     MatFormFieldModule,
     MatButtonModule,
-    
+    MatDialog,
   ],
   providers: [],
   bootstrap: [AppComponent]
