@@ -49,6 +49,10 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+    <!-- <h3>Formato seleccionado => {{formatosElejidos}}</h3>   -->
+    <!-- <p *ngFor="let dato of tiendasElejidas">
+      {{dato.Nombre}} {{dato.IdAlmacen}} {{dato.IdFormato}}
+    </p> -->
   </div>
 
 
@@ -59,6 +63,8 @@
       </div>
       <div class="example-button-row">
         <button mat-flat-button color="accent" [disabled]="isDisabledEnvio" (click)="EnviarPedidos()">Enviar</button>
+        <!-- <input type='file' accept='text/plain' (change)="changeListener($event)"><br> 
+        <img id='output'> -->
       </div>
 
     </section>

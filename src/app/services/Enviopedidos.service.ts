@@ -11,11 +11,7 @@ export class EnvioPedidosService {
     
     constructor(private http: HttpClient) { }
 
-    createAuthorizationHeader(headers: Headers, basic) {
-        headers.append('Authorization', basic);
-    }
-
-    async getEnvioPedidos(jspedidos: any) {
+      async getEnvioPedidos(jspedidos: any) {
         const options = {
             headers: new HttpHeaders().append('Content-Type', 'application/json')
             //params: new HttpParams().append('key', 'value')
