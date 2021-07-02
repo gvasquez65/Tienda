@@ -3,16 +3,14 @@ import { Pais } from './../interfaces/pais';
 import { Formato } from './../interfaces/formato';
 import {PaisService} from './../services/pais.service';
 import {FormatoService} from './../services/formato.service';
-// import { SELECT_ITEM_HEIGHT_EM } from '@angular/material/select';
 import {FormControl} from '@angular/forms';
 import { TiendaService } from '../services/tienda.service';
 import { Tienda } from '../interfaces/tienda';
-// import { DatatableComponent } from '@swimlane/ngx-datatable/src/components/datatable.component';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { saveAs } from 'file-saver';
 import { PedidosService } from '../services/pedidos.service';
 import { Pedido } from '../interfaces/pedido';
-
+import { EnvioPedidosService } from '../services/Enviopedidos.service';
 
 
 interface NombrePaises {
@@ -24,7 +22,7 @@ interface NombrePaises {
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
-  providers: [PaisService,FormatoService,TiendaService,PedidosService]
+  providers: [PaisService,FormatoService,TiendaService,PedidosService,EnvioPedidosService]
 })
 export class FormComponent implements OnInit {
 
@@ -90,8 +88,8 @@ array=[];
   constructor(private paisSvc:PaisService,
     private formatoSvc:FormatoService,
     private tiendaSvc:TiendaService,
-    private pedidoSvc:PedidosService) { 
-
+    private pedidoSvc:PedidosService,
+    private EnviopedidoSvc:EnvioPedidosService) { 
     }
 
   async ngOnInit() {
@@ -99,21 +97,12 @@ array=[];
    // this.nombrepais="Colombia";
     
     
-    // console.log(this.paisSvc.getPaises());
-  
-
-   // this.paises = this.paisSvc.getPaises();
-
-       // this.paisSvc.getPaises1();
-       this.isDisabled = true;
+  this.isDisabled = true;
 
   debugger;
       const resultado  = await this.paisSvc.getPaises1();
       
-      // const json = JSON.stringify(resultado);
-      // console.log("Resultado json");
-      // console.log(json);
-
+     
     const datos: Pais[] = JSON.parse(resultado).Table1;
    console.log("Resultado datos");
    console.log(datos);
@@ -127,9 +116,7 @@ array=[];
    console.log(datosF);
    this.formatos = datosF;
 
-   //const resultadoT  = await this.tiendaSvc.getTiendas(this.paisSeleccionado);
-
-
+   
    this.paisSeleccionado= 169;
    
    console.log("Resultado Columnas");
@@ -138,8 +125,7 @@ array=[];
   }
   onSelect(id:any):void {
     console.log('ID->',id);
-    // this.cities = this.dataSvc.getcities().filter(item => item.countryID = id);
-
+    
   }
 
   onChange(id:any):void{
@@ -147,25 +133,19 @@ array=[];
 
   }
 
-
-
-  async verTiendas(){
+  
+   async verTiendas(){
     debugger
-    // this.rows = this.rowData;
-    // this.temp = this.rows;
 
     const tiendasE = [];
-    
+        
     this.tiendasElejidas.forEach(element => {
       tiendasE.push({"tienda": element.idAlmacen});
-      //console.log('Tienda JSON->', element.idAlmacen);
     }); 
     console.log('Tienda filtrada JSON->',tiendasE);
     const jsonT ={"almacenes": tiendasE};
-        //const pedidos = JSON.stringify(jsonT);
     const Pedidos: any  = jsonT;
 
-    //console.log('Formato JSON->',formatos);
     console.log('Pedidos JSON ->',Pedidos);
 
     const resultadoT  = await this.pedidoSvc.getPedidos(Pedidos);
@@ -177,38 +157,23 @@ array=[];
    this.pedidos = datosP;
    console.log("Ped->",this.pedidos);
 
-   //this.tiendas = datosP;
     this.rows = this.pedidos;
     this.temp = this.rows;
 
 
     this.isDisabledEnvio = false;
 
-    //this.expFile();
-   // this.saveFile();
-       
-
-    //var fs = require('file-system');
- 
-    // fs.mkdir('1/2/3/4/5', [mode], function(err) {});
-    // fs.mkdirSync('1/2/3/4/5', [mode]);
-    // fs.writeFile('path/test.txt', 'aaa', function(err) {
-    //   console.log('hecho');
-    // })
-
-    // public items: Item[];
-
-    //alert(this.formatosElejidos[0].Descripcion)
-    //alert(this.formatosElejidos[0].IdFormato)
-    //alert(this.formatosElejidos[1].IdFormato)
-   
+      
     
   }
 
-  EnviarPedidos(){
+  async EnviarPedidos(){
     const jspedidos = JSON.stringify(this.pedidos);
     console.log('Pedidos JSON->',jspedidos);
-
+    debugger
+    const resultadoEnvio  = await this.EnviopedidoSvc.getEnvioPedidos(jspedidos);
+    console.log(resultadoEnvio);
+    
   }
 
  
@@ -311,16 +276,7 @@ array=[];
     console.log('Tienda JSON->',tiendas);
 
     this.isDisabled = false;
-  //   const paisFormatos ={"pais": this.paisSeleccionado,"formatos": formatos}
-  //   console.log('Formato JSON->',formatos);
-  //   console.log('Body JSON->',paisFormatos);
-
-  //   const resultadoT  = await this.tiendaSvc.getTiendas(paisFormatos);
-
-  //   const datosT: Tienda[] = JSON.parse(resultadoT).Table1;
-  //  console.log("Resultado Tiendas");
-  //  console.log(datosT);
-  //  this.tiendas = datosT;
+  
 
   }
 
@@ -352,12 +308,6 @@ else{
   // e.initEvent('click', true, false, window,0, 0, 0, 0, 0, false, false, false, false, 0, null);
   a.dispatchEvent(e);
 }
-}
-
-expFile() {
-var fileText = "I am the first part of the info being emailed.\r\nI am the second part.\r\nI am the third part.\r\nGerman Vasquez";
-var fileName = "newfile001.txt"
-this.saveTextAsFile(fileText, fileName);
 }
 
 saveFile() {

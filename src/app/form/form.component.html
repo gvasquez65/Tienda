@@ -35,24 +35,20 @@
 
   </div>
   <div class="elemento">
-    <mat-form-field appearance="fill">
-      <mat-label>Tiendas</mat-label>
-      <mat-select [(ngModel)]="tiendasElejidas" [formControl]="tienda" multiple>
-        <mat-select-trigger>
-          {{tienda.value ? tienda.value[0].Nombre : ''}}
-          <span *ngIf="tienda.value?.length > 1" class="example-additional-selection">
-            (+{{tienda.value.length - 1}} {{tienda.value?.length === 4 ? 'otro' : 'otros'}})
-          </span>
-        </mat-select-trigger>
-        <mat-option *ngFor="let item of tiendas" [value]="item" (click)="seleccionaTienda(item)">
-          {{item.Nombre}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <!-- <h3>Formato seleccionado => {{formatosElejidos}}</h3>   -->
-    <!-- <p *ngFor="let dato of tiendasElejidas">
-      {{dato.Nombre}} {{dato.IdAlmacen}} {{dato.IdFormato}}
-    </p> -->
+      <mat-form-field appearance="fill">
+        <mat-label>Tiendas</mat-label>
+        <mat-select [(ngModel)]="tiendasElejidas" [formControl]="tienda" multiple>
+          <mat-select-trigger>
+            {{tienda.value ? tienda.value[0].Nombre : ''}}
+            <span *ngIf="tienda.value?.length > 1" class="example-additional-selection">
+              (+{{tienda.value.length - 1}} {{tienda.value?.length === 4 ? 'otro' : 'otros'}})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let item of tiendas" [value]="item" (click)="seleccionaTienda(item)">
+            {{item.Nombre}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
   </div>
 
 
@@ -63,17 +59,11 @@
       </div>
       <div class="example-button-row">
         <button mat-flat-button color="accent" [disabled]="isDisabledEnvio" (click)="EnviarPedidos()">Enviar</button>
-        <!-- <input type='file' accept='text/plain' (change)="changeListener($event)"><br> 
-        <img id='output'> -->
       </div>
 
     </section>
 
-
-    <!-- <button (click)= "verTiendas()">
-      Filtrar Tiendas
-
-      </button> -->
+   
 
   </div>
 
