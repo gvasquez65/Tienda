@@ -24,6 +24,9 @@ import { DropComponent } from './drop/drop.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 
 
@@ -33,7 +36,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     HomeComponent,
     ListComponent,
     FormComponent,
-    DropComponent
+    DropComponent,
+    AlertDialogComponent,
   ],
   imports: [
     NgxDatatableModule,
@@ -54,8 +58,9 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     MatCheckboxModule,
     MatFormFieldModule,
     MatButtonModule,
-    
+    MatDialogModule,
   ],
+  entryComponents: [AlertDialogComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

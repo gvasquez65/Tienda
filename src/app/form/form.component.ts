@@ -13,7 +13,9 @@ import { saveAs } from 'file-saver';
 import { PedidosService } from '../services/pedidos.service';
 import { Pedido } from '../interfaces/pedido';
 import { EnvioPedidosService } from '../services/Enviopedidos.service';
-
+// import { MatDialog } from '@angular/material/dialog';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
 
 
 interface NombrePaises {
@@ -27,6 +29,13 @@ interface NombrePaises {
   styleUrls: ['./form.component.scss'],
   providers: [PaisService,FormatoService,TiendaService,PedidosService,EnvioPedidosService]
 })
+
+// @Component({
+//   selector: 'dialog-content-example-dialog',
+//   templateUrl: './ventana/dialog-content-example-dialog.html',
+// })
+//  export class DialogContentExampleDialog {}
+
 export class FormComponent implements OnInit {
 
   
@@ -50,6 +59,7 @@ export class FormComponent implements OnInit {
   public labelPosition: 'after';
   public isDisabled = true;
   public isDisabledEnvio = true;
+  public ResultadoEnvio = 'No hay datos';
 
   
   
@@ -92,21 +102,17 @@ array=[];
     private formatoSvc:FormatoService,
     private tiendaSvc:TiendaService,
     private pedidoSvc:PedidosService,
-    private EnviopedidoSvc:EnvioPedidosService) { 
+    private EnviopedidoSvc:EnvioPedidosService,
+    private dialog: MatDialog,) { 
     }
+
 
   async ngOnInit() {
    
    // this.nombrepais="Colombia";
     
-    
-    // console.log(this.paisSvc.getPaises());
-  
-
-   // this.paises = this.paisSvc.getPaises();
-
-       // this.paisSvc.getPaises1();
-       this.isDisabled = true;
+       
+    this.isDisabled = true;
 
   debugger;
       const resultado  = await this.paisSvc.getPaises1();
@@ -197,17 +203,37 @@ array=[];
     
   }
 
+  openAlertDialog() {
+    const dialogRef = this.dialog.open(AlertDialogComponent,{
+      data:{
+        message: this.ResultadoEnvio,
+        buttonText: {
+          cancel: 'hecho'
+        }
+      },
+    });
+  }
+
+  
+  // openAlertDialog() {
+  //   const dialogRef = this.dialog.open(AlertDialogComponent,{
+  //     data:{
+  //       message: 'HelloWorld',
+  //       buttonText: {
+  //         cancel: 'Done'
+  //       }
+  //     },
+  //   });
+  // }
+
   async EnviarPedidos(){
     const jspedidos = JSON.stringify(this.pedidos);
     console.log('Pedidos JSON->',jspedidos);
 
     const resultadoEnvio  = await this.EnviopedidoSvc.getEnvioPedidos(jspedidos);
     console.log(resultadoEnvio);
-    //let EnvioP = [];
-    //EnvioP = await this.EnviopedidoSvc.getEnvioPedidos(jspedidos);
-    //console.log(EnvioP);
-    //const datosR: Tienda[] = JSON.parse(resultadoEnvio).mensaje;
-
+    this.ResultadoEnvio = resultadoEnvio;
+    
   }
 
  
@@ -392,6 +418,8 @@ readThis(inputValue: any) : void {
   }
 
   myReader.readAsText(file);
+  
 }
+
 
 }
