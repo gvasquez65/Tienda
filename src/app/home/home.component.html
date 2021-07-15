@@ -1,7 +1,34 @@
 <h2>Bienvenida</h2>
-<button (click)="getAllTasks()">Todas las Tareas</button>
+<mat-sidenav-container class="container">
+  <!-- side-nav -->
+  
+  <mat-sidenav mode="side" opened class="sidenav">
+    <mat-toolbar class="toolbar">LEONISA</mat-toolbar>
+    <!-- Elements list menu -->
+    <mat-list>
+      <mat-list-item *ngFor="let item of links"> 
+        <a matLine [routerLink]="item.url">{{ item.name }}</a>
+      </mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+  <!-- side-nav-content -->
+  <mat-sidenav-content>
+    <mat-toolbar class="toolbar">
+      <mat-toolbar-row>
+        <span>Interfaz Tiendas </span>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="container-page">
+      <!-- <button (click)="getAllTasks()">Todas las Tareas</button> -->
+     <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 
-<button (click)="getTask()">Tarea</button>
+
+<!-- <button (click)="getAllTasks()">Todas las Tareas</button>
+
+<button (click)="getTask()">Tarea</button> -->
 <!-- <div class="contenedor">
     <mat-checkbox [(ngModel)]="opcion1">Tienda</mat-checkbox>
     <mat-checkbox [(ngModel)]="opcion2">OUTLET</mat-checkbox>
@@ -9,71 +36,13 @@
     <mat-checkbox [(ngModel)]="opcion4">ZEBRA</mat-checkbox>
 </div> -->
 
-<div class="contenedor">
+<!-- <div class="contenedor">
     <div class="elemento">1</div>
     <div class="elemento">2</div>
     <div class="elemento">3</div>
     <div class="elemento">4</div>
     <div class="elemento">5</div>
     <div class="elemento">6</div>
-    <div class="elemento">7</div>
-    <!--  -->
-    <!-- <div class cl="elemento">
-      <mat-selection-list #FormComponent >
-        <mat-list-option *ngFor="let item of tiendas" checkboxPosition="before">
-            {{item}}
-        </mat-list-option>
-      </mat-selection-list>
-    </div> -->
-    <!-- <div class="elemento">
-      <select [(ngModel)]="seleccionepais.IdPais" (change)="onSelect($event.target.value)">
-        <option *ngFor="let pais of paises" value= {{pais.IdPais}}>
-          {{pais.Descripcion}}
-        </option>
-      </select>
-      <p> Codigo Pais : {{seleccionepais.IdPais}} </p>
-    </div> -->
-    
-    <!-- <div class ="elemento"> </div> -->
-    <!-- <div class="elemento">
-      <mat-form-field class="full-width">
-        <mat-label>Email</mat-label>
-        <input matInput placeholder="ejemplo@ejemplo.com">
-      </mat-form-field>
-      <mat-radio-group
-        aria-labelledby="radio-group-label"
-        class="radio-group"
-        [(ngModel)]="favoriteCountry">
-        <mat-radio-button class="radio-button" *ngFor="let item of countries" [value]="item">
-          {{item}}
-        </mat-radio-button>
-      </mat-radio-group>
-      <p> Pais Seleccionado: {{favoriteCountry}} </p>
-    </div> -->
-    <!-- <div class="elemento">
-        <mat-checkbox *ngFor="let item of tiendas"> 
-          {{item}}
-        </mat-checkbox>
-    </div> -->
-
-      <!-- <mat-form-field appearance="fill"> -->
-        <!-- <mat-form-field class="mid-width"> -->
-          <!-- <mat-label>Formatos</mat-label>
-          <mat-select placeholder="Seleccione un formato" [(ngModel)]="formatoSeleccionado" name="item">
-            <mat-option *ngFor="let item of formatos" [value]="item.Descripcion">    
-                {{item.Descripcion}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>  
-        <h3>Formato seleccionado => {{formatoSeleccionado}}</h3>  -->
-        
-<!-- <mat-form-field>
-    <mat-select [(value)]="paisActual" placeholder="Seleccione un pais">
-        <mat-option *ngFor="let item of paisNombres" [value]="item.id">
-            {{item.name}}
-        </mat-option>
-    </mat-select>
-</mat-form-field> -->
-
-</div>
+    <div class="elemento">7</div> -->
+<!-- </div> -->
 

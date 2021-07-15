@@ -19,19 +19,16 @@ export class AppComponent {
 
 
   links = [
-    // {
-    //   name: "Inicio",
-    //   url: ""
-    // },
-    // {
-    //   name: "Paises",
-    //   url: "drop"
-    // },
+    {
+      name: "login",
+      url: "login"
+    },
     // {
     //   name: "Lista",
     //   url: "list"
     // },
-    {
+
+   {
       name: "Formulario",
       url: "form"
     }

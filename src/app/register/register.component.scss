@@ -1,11 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
-@import '~@swimlane/ngx-datatable/index.css';
-@import '~@swimlane/ngx-datatable/themes/material.scss';
-@import '~@swimlane/ngx-datatable/themes/bootstrap.scss';
-@import '~@swimlane/ngx-datatable/assets/icons.css';
-/*html, body { height: 100%; }*/
-/*body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
-
 * {
     box-sizing: border-box;
   }
@@ -19,7 +11,7 @@
   }
   .custom-form {
     min-width: 300px;
-    max-width: 25%;
+    max-width: 60%;
     margin: 0px auto;
     background: rgba(255, 255, 255, 0.15);
     padding: 2rem 3rem;
@@ -49,7 +41,7 @@
     font-size: 0.875rem;
     color: #ffffff;
     font-weight: bold;
-    background-color: #2576b8;
+    background-color: #bcd8c1;
     width: 100%;
     display: block;
     padding: 0.875rem 1rem;

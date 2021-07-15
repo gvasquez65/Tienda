@@ -214,6 +214,17 @@ array=[];
     });
   }
 
+  openAlertDialog1(strMensaje: string) {
+    const dialogRef = this.dialog.open(AlertDialogComponent,{
+      data:{
+        message: strMensaje,
+        buttonText: {
+          cancel: 'hecho'
+        }
+      },
+    });
+  }
+
   
   // openAlertDialog() {
   //   const dialogRef = this.dialog.open(AlertDialogComponent,{
@@ -233,7 +244,8 @@ array=[];
     const resultadoEnvio  = await this.EnviopedidoSvc.getEnvioPedidos(jspedidos);
     console.log(resultadoEnvio);
     this.ResultadoEnvio = resultadoEnvio;
-    
+    this.openAlertDialog1(this.ResultadoEnvio);
+        
   }
 
  
