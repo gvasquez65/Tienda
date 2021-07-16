@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+
+import { Component, Input,Output } from '@angular/core';
 import { TaskService } from './services/task.service';
 
 
@@ -28,21 +29,38 @@ export class AppComponent {
     //   url: "list"
     // },
 
-   {
+    {
       name: "Formulario",
       url: "form"
     }
   ]
   title = 'PryInterfazTiendas';
-  
-constructor(
-  private taskService: TaskService)
-  {}
+  public isContentLoading = true;
+
+  @Input()
+  isDisabledList = true;
+  nombre = 'DesarrolloWeb.com';
+
+
+  constructor(
+    private taskService: TaskService
+    ) { }
   getAllTasks() {
     this.taskService.getAllTasks()
-    .subscribe(tasks => {
-      console.log(tasks);
-    });
+      .subscribe(tasks => {
+        console.log(tasks);
+      });
+  }
+  loadContent(nom: string) {
+    debugger;
+    console.log(nom);
+    
+    if (nom = 'form') {
+      this.isContentLoading = true;
+    }
+    else {
+      this.isContentLoading = false;
+    }
   }
 
 }

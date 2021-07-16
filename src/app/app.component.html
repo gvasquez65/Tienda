@@ -4,11 +4,11 @@
   <mat-sidenav mode="side" opened class="sidenav">
     <mat-toolbar class="toolbar">LEONISA</mat-toolbar>
     <!-- Elements list menu -->
-    <mat-list>
-      <mat-list-item *ngFor="let item of links"> 
+    <!-- <mat-list>
+      <mat-list-item *ngFor="let item of links" [class.disabled]="isContentLoading" (click)="!isContentLoading && loadContent(item.url)" >   
         <a matLine [routerLink]="item.url">{{ item.name }}</a>
       </mat-list-item>
-    </mat-list>
+    </mat-list> -->
   </mat-sidenav>
   <!-- side-nav-content -->
   <mat-sidenav-content>
