@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-// import { UsersService } from "../users/users.service";
 // import { HomeComponent } from '../home/home.component';
 import {Router, ActivatedRoute} from '@angular/router';
 // import { AppComponent } from "../app.component";
@@ -23,17 +22,7 @@ export class LoginComponent implements OnInit {
     // throw new Error("Method not implemented.");
   }
 
-  // login() {
-  //   this.service.setLogin('true');
-  //   this.router.navigateByUrl('/form');
-   
-  //   console.log(this.email);
-  //   console.log(this.password);
-  // }
-
-  //constructor(public userService: UsersService, public router: Router) {}
-
-  login() {
+    login() {
     const user = {email: this.email, password: this.password};
     this.userService.login(user).subscribe( data => {
       console.log(data);
@@ -45,20 +34,9 @@ export class LoginComponent implements OnInit {
              console.log(error);
            }
     );
-    console.log(this.email);
-    console.log(this.password);
+    //eve.holt@reqres.in
+    // console.log(this.email);
+    // console.log(this.password);
   }
-
-  // login() {
-  //   const user = { email: this.email, password: this.password };
-  //   this.userService.login(user).subscribe(
-  //     data => {
-  //       this.userService.setToken(data.token);
-  //       this.router.navigateByUrl("/");
-  //     },
-  //     error => {
-  //       console.log(error);
-  //     }
-  //   );
-  // }
+ 
 }

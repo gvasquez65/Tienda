@@ -30,11 +30,6 @@ interface NombrePaises {
   providers: [PaisService, FormatoService, TiendaService, PedidosService, EnvioPedidosService]
 })
 
-// @Component({
-//   selector: 'dialog-content-example-dialog',
-//   templateUrl: './ventana/dialog-content-example-dialog.html',
-// })
-//  export class DialogContentExampleDialog {}
 
 export class FormComponent implements OnInit {
 
@@ -77,18 +72,18 @@ export class FormComponent implements OnInit {
 
   ];
 
-  public columnDefs = [
-    { field: 'orden' },
-    { field: 'almacen' },
-    { field: 'nitprov' },
-    { field: 'precio' }
-  ];
+  // public columnDefs = [
+  //   { field: 'orden' },
+  //   { field: 'almacen' },
+  //   { field: 'nitprov' },
+  //   { field: 'precio' }
+  // ];
 
-  public rowData = [
-    { descripcion: 'ZEBRA', numeroorden: '2', almacen: '329', nitprov: 81, fecha: '05/29/2021', idregistro: 'REPOS', codlargo: '1081106 328022301481001', ean: '7703625219156', cantidad: 1, preciofacturacion: '34000', precio: '35000' },
-    { descripcion: 'LEONISA', numeroorden: '3', almacen: '389', nitprov: 81, fecha: '05/29/2021', idregistro: 'REPOS', codlargo: '1081301 328022301481001', ean: '7703625238720', cantidad: 2, preciofacturacion: '34500', precio: '32000' },
-    { descripcion: 'LESENSUE', numeroorden: '4', almacen: '578', nitprov: 81, fecha: '05/29/2021', idregistro: 'REPOS', codlargo: '1081058 367002301481001', ean: '7703625201717', cantidad: 2, preciofacturacion: '73000', precio: '72000' }
-  ];
+  // public rowData = [
+  //   { descripcion: 'ZEBRA', numeroorden: '2', almacen: '329', nitprov: 81, fecha: '05/29/2021', idregistro: 'REPOS', codlargo: '1081106 328022301481001', ean: '7703625219156', cantidad: 1, preciofacturacion: '34000', precio: '35000' },
+  //   { descripcion: 'LEONISA', numeroorden: '3', almacen: '389', nitprov: 81, fecha: '05/29/2021', idregistro: 'REPOS', codlargo: '1081301 328022301481001', ean: '7703625238720', cantidad: 2, preciofacturacion: '34500', precio: '32000' },
+  //   { descripcion: 'LESENSUE', numeroorden: '4', almacen: '578', nitprov: 81, fecha: '05/29/2021', idregistro: 'REPOS', codlargo: '1081058 367002301481001', ean: '7703625201717', cantidad: 2, preciofacturacion: '73000', precio: '72000' }
+  // ];
 
   rows = [];
   filteredData = [];
@@ -130,8 +125,8 @@ export class FormComponent implements OnInit {
 
     this.paisSeleccionado = 169;
 
-    console.log("Resultado Columnas");
-    console.log(this.columnDefs);
+    // console.log("Resultado Columnas");
+    // console.log(this.columnDefs);
 
   }
   onSelect(id: any): void {
