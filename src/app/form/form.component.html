@@ -35,20 +35,20 @@
 
   </div>
   <div class="elemento">
-      <mat-form-field appearance="fill">
-        <mat-label>Tiendas</mat-label>
-        <mat-select [(ngModel)]="tiendasElejidas" [formControl]="tienda" multiple>
-          <mat-select-trigger>
-            {{tienda.value ? tienda.value[0].Nombre : ''}}
-            <span *ngIf="tienda.value?.length > 1" class="example-additional-selection">
-              (+{{tienda.value.length - 1}} {{tienda.value?.length === 4 ? 'otro' : 'otros'}})
-            </span>
-          </mat-select-trigger>
-          <mat-option *ngFor="let item of tiendas" [value]="item" (click)="seleccionaTienda(item)">
-            {{item.Nombre}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Tiendas</mat-label>
+      <mat-select [(ngModel)]="tiendasElejidas" [formControl]="tienda" multiple>
+        <mat-select-trigger>
+          {{tienda.value ? tienda.value[0].Nombre : ''}}
+          <span *ngIf="tienda.value?.length > 1" class="example-additional-selection">
+            (+{{tienda.value.length - 1}} {{tienda.value?.length === 4 ? 'otro' : 'otros'}})
+          </span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let item of tiendas" [value]="item" (click)="seleccionaTienda(item)">
+          {{item.Nombre}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <!-- <h3>Formato seleccionado => {{formatosElejidos}}</h3>   -->
     <!-- <p *ngFor="let dato of tiendasElejidas">
       {{dato.Nombre}} {{dato.IdAlmacen}} {{dato.IdFormato}}
@@ -59,33 +59,30 @@
   <div class="elemento">
     <section>
       <div class="example-button-row">
-        <button mat-raised-button color="primary" [disabled]="isDisabled" (click)="verTiendas()">Filtrar </button>
+        <button mat-raised-button color="primary" [disabled]="isDisabled" (click)="verTiendas()">Filtrar</button>
       </div>
       <div class="example-button-row">
         <button mat-flat-button color="accent" [disabled]="isDisabledEnvio" (click)="EnviarPedidos()">Enviar</button>
-        <!-- <input type='file' accept='text/plain' (change)="changeListener($event)"><br> 
-        <img id='output'> -->
       </div>
       <p>
         <button mat-button color="accent" (click)="openAlertDialog()">Abrir LOG</button>
       </p>
-
     </section>
-
-   
-
   </div>
-
-
 </div>
 
-<div class="row">
-  <div class="col-sm-12" *ngIf="rows.length > 0">
+<div class="row" *ngIf="cargando">
+  <h1 style="width: 100%; text-align: center;">Cargando...</h1>
+</div>
 
-    <!-- <ngx-datatable #table class="bootstrap" [rows]="rows" [columnMode]="'force'" [columns]="columnDefs" -->
+<div class="row" *ngIf="rows.length == 0 && !isDisabled">
+  <h1 style="width: 100%; text-align: center;">NO HAY DATOS!</h1>
+</div>
+
+<div class="row" *ngIf="rows.length > 0">
+  <div class="col-sm-12">
     <ngx-datatable #table class="bootstrap" [rows]="rows" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
       [rowHeight]="40" [limit]="14">
-      <!-- <ngx-datatable-column name="Nro.Orden" [width]="300" prop='NumeroOrden'></ngx-datatable-column> -->
       <ngx-datatable-column name="Nro.Orden" prop="NumeroOrden" [width]="300">
         <ng-template let-column="column" ngx-datatable-header-template>
           <p class="filtroColumnaTitulo" style="color: darkblue;">{{column.name}}</p>

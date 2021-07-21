@@ -1,8 +1,8 @@
 
-import { Component, Input,Output } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from './services/auth.service';
 import { TaskService } from './services/task.service';
-
-
 
 @Component({
   selector: 'app-root',
@@ -43,8 +43,10 @@ export class AppComponent {
 
 
   constructor(
-    private taskService: TaskService
-    ) { }
+    private taskService: TaskService,
+    private service: AuthService,
+    private router: Router
+  ) { }
   getAllTasks() {
     this.taskService.getAllTasks()
       .subscribe(tasks => {
@@ -54,13 +56,18 @@ export class AppComponent {
   loadContent(nom: string) {
     debugger;
     console.log(nom);
-    
+
     if (nom = 'form') {
       this.isContentLoading = true;
     }
     else {
       this.isContentLoading = false;
     }
+  }
+
+  logout() {
+    this.service.logout();
+    this.router.navigate(['/logon']);
   }
 
 }

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {User} from '../interfaces/user';
+import { User } from '../interfaces/user';
 
 @Injectable({ providedIn: 'root' })
 
@@ -37,16 +37,17 @@ export class AuthService {
     }
 
     logout() {
-        // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
+        localStorage.removeItem('log');
         this.currentUserSubject.next(null);
     }
+    
     async getLogin() {
         return await localStorage.getItem('log');
-      }
-     async setLogin(login: string) {
+    }
+
+    async setLogin(login: string) {
         await localStorage.setItem('log', login);
-      }
+    }
 
 }
 

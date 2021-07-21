@@ -2,7 +2,7 @@
   <!-- side-nav -->
   
   <mat-sidenav mode="side" opened class="sidenav">
-    <mat-toolbar class="toolbar">LEONISA</mat-toolbar>
+    <!-- <mat-toolbar class="toolbar">LEONISA</mat-toolbar> -->
     <!-- Elements list menu -->
     <!-- <mat-list>
       <mat-list-item *ngFor="let item of links" [class.disabled]="isContentLoading" (click)="!isContentLoading && loadContent(item.url)" >   
@@ -16,7 +16,7 @@
       <mat-toolbar-row>
         <span class='fill-remainig-space'> Interfaz Tiendas </span>
         <span class='fill-remainig-space'> </span>
-        <a routerLink="/login" style="color:whitesmoke" routerLinkActive='active' >Log out</a>
+        <a (click)="logout()" style="color:whitesmoke" routerLinkActive='active' >Log out</a>
       </mat-toolbar-row>
     </mat-toolbar>
     <div class="container-page">
