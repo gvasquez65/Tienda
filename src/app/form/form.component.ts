@@ -55,8 +55,7 @@ export class FormComponent implements OnInit {
   public isDisabled = true;
   public isDisabledEnvio = true;
   public ResultadoEnvio = 'No hay datos';
-
-
+  public loading: boolean;
 
   tiendasf: string[] = ['Outlet', 'Tiendas Leonisa', 'Duty Free', 'Zebra', 'Concesion', 'Tienda Basica'];
   countries: string[] = ['Colombia', 'Costa Rica', 'Ecuador', 'Guatemala', 'Mexico', 'Puerto Rico'];
@@ -72,19 +71,6 @@ export class FormComponent implements OnInit {
 
   ];
 
-  // public columnDefs = [
-  //   { field: 'orden' },
-  //   { field: 'almacen' },
-  //   { field: 'nitprov' },
-  //   { field: 'precio' }
-  // ];
-
-  // public rowData = [
-  //   { descripcion: 'ZEBRA', numeroorden: '2', almacen: '329', nitprov: 81, fecha: '05/29/2021', idregistro: 'REPOS', codlargo: '1081106 328022301481001', ean: '7703625219156', cantidad: 1, preciofacturacion: '34000', precio: '35000' },
-  //   { descripcion: 'LEONISA', numeroorden: '3', almacen: '389', nitprov: 81, fecha: '05/29/2021', idregistro: 'REPOS', codlargo: '1081301 328022301481001', ean: '7703625238720', cantidad: 2, preciofacturacion: '34500', precio: '32000' },
-  //   { descripcion: 'LESENSUE', numeroorden: '4', almacen: '578', nitprov: 81, fecha: '05/29/2021', idregistro: 'REPOS', codlargo: '1081058 367002301481001', ean: '7703625201717', cantidad: 2, preciofacturacion: '73000', precio: '72000' }
-  // ];
-
   rows = [];
   filteredData = [];
   temp = [];
@@ -93,6 +79,7 @@ export class FormComponent implements OnInit {
   // table: any;
 
   cargando = false;
+  enviando = false;
 
 
   constructor(private paisSvc: PaisService,
@@ -106,39 +93,40 @@ export class FormComponent implements OnInit {
 
   async ngOnInit() {
 
-    this.isDisabled = true;
+    try {
+      this.isDisabled = true;
+      const resultado = await this.paisSvc.getPaises1();
+  
+      const datos: Pais[] = JSON.parse(resultado).Table1;
+      // console.log("Resultado datos");
+      // console.log(datos);
+       this.paises = datos;
+  
+      const resultadoF = await this.formatoSvc.getFormatos();
+    
+      const datosF: Formato[] = JSON.parse(resultadoF).Table1;
+      // console.log("Resultado Formatos");
+      // console.log(datosF);
+      this.formatos = datosF;
+  
+      this.paisSeleccionado = 169;
+      
+      
+    } catch (error) {
+      console.error(error);  
+    }
 
-    const resultado = await this.paisSvc.getPaises1();
-
-    const datos: Pais[] = JSON.parse(resultado).Table1;
-    console.log("Resultado datos");
-    console.log(datos);
-    this.paises = datos;
-
-    const resultadoF = await this.formatoSvc.getFormatos();
-
-
-    const datosF: Formato[] = JSON.parse(resultadoF).Table1;
-    console.log("Resultado Formatos");
-    console.log(datosF);
-    this.formatos = datosF;
-
-    this.paisSeleccionado = 169;
-
-    // console.log("Resultado Columnas");
-    // console.log(this.columnDefs);
-
+    
   }
-  onSelect(id: any): void {
-    console.log('ID->', id);
-    // this.cities = this.dataSvc.getcities().filter(item => item.countryID = id);
+  // onSelect(id: any): void {
+  //   console.log('ID->', id);
+    
+  // }
 
-  }
+  // onChange(id: any): void {
+  //   console.log('IDM->', id);
 
-  onChange(id: any): void {
-    console.log('IDM->', id);
-
-  }
+  // }
 
 
 
@@ -146,7 +134,8 @@ export class FormComponent implements OnInit {
 
     this.isDisabled = true;
     this.cargando = true;
-
+    this.loading = true;
+    
     const tiendasE = [];
 
     this.tiendasElejidas.forEach(element => {
@@ -163,8 +152,10 @@ export class FormComponent implements OnInit {
       this.rows = this.pedidos;
       this.temp = this.rows;
       this.cargando= false;
+      this.loading = false;
     }).catch(err => {
       this.cargando= false;
+      this.loading = false;
       const dialogRef = this.dialog.open(AlertDialogComponent, {
         data: {
           message: 'Ocurrio un error trayendo los datos!',
@@ -210,12 +201,28 @@ export class FormComponent implements OnInit {
 
   async EnviarPedidos() {
     const jspedidos = JSON.stringify(this.pedidos);
-    console.log('Pedidos JSON->', jspedidos);
-
-    const resultadoEnvio = await this.EnviopedidoSvc.getEnvioPedidos(jspedidos);
-    console.log(resultadoEnvio);
+    this.enviando= true;
+    //console.log('Pedidos JSON->', jspedidos);
+    await this.EnviopedidoSvc.getEnvioPedidos(jspedidos).then(resultadoEnvio => {
+    //const resultadoEnvio = await this.EnviopedidoSvc.getEnvioPedidos(jspedidos);
     this.ResultadoEnvio = resultadoEnvio;
     this.openAlertDialog1(this.ResultadoEnvio);
+    this.enviando= false;
+  }).catch(err => {
+    this.enviando= false;
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      data: {
+        message: 'Ocurrio un error enviando los datos!',
+        buttonText: {
+          cancel: 'Aceptar'
+        }
+      },
+    });
+  });
+
+    // console.log(resultadoEnvio);
+    // this.ResultadoEnvio = resultadoEnvio;
+    // this.openAlertDialog1(this.ResultadoEnvio);
 
   }
 
@@ -288,20 +295,22 @@ export class FormComponent implements OnInit {
   async seleccionaFormato(item: any) {
 
     const formatos = [];
+     this.rows = [];
+     this.isDisabledEnvio = true;
 
     this.formatosElejidos.forEach(element => {
       formatos.push({ "formato": element.IdFormato });
     });
 
     const paisFormatos = { "pais": this.paisSeleccionado, "formatos": formatos }
-    console.log('Formato JSON->', formatos);
-    console.log('Body JSON->', paisFormatos);
+    // console.log('Formato JSON->', formatos);
+    // console.log('Body JSON->', paisFormatos);
 
     const resultadoT = await this.tiendaSvc.getTiendas(paisFormatos);
 
     const datosT: Tienda[] = JSON.parse(resultadoT).Table1;
-    console.log("Resultado Tiendas");
-    console.log(datosT);
+    // console.log("Resultado Tiendas");
+    // console.log(datosT);
     this.tiendas = datosT;
 
   }
@@ -319,17 +328,7 @@ export class FormComponent implements OnInit {
     console.log('Tienda JSON->', tiendas);
 
     this.isDisabled = false;
-    //   const paisFormatos ={"pais": this.paisSeleccionado,"formatos": formatos}
-    //   console.log('Formato JSON->',formatos);
-    //   console.log('Body JSON->',paisFormatos);
-
-    //   const resultadoT  = await this.tiendaSvc.getTiendas(paisFormatos);
-
-    //   const datosT: Tienda[] = JSON.parse(resultadoT).Table1;
-    //  console.log("Resultado Tiendas");
-    //  console.log(datosT);
-    //  this.tiendas = datosT;
-
+        
   }
 
   saveTextAsFile(data, filename) {

@@ -4,6 +4,8 @@ import {Router, ActivatedRoute} from '@angular/router';
 // import { AppComponent } from "../app.component";
 import { AuthService } from '../services/auth.service';
 import { UsersService } from '../services/users.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
 
 @Component({
   selector: "app-login",
@@ -13,14 +15,13 @@ import { UsersService } from '../services/users.service';
 export class LoginComponent implements OnInit {
   email: string;
   password: string;
-  
+  public messageError: string;
   // @Input()
   // nombre = 'DesarrolloWeb.com';
 
-  constructor(private router: Router, private activatedRouter: ActivatedRoute,private service:AuthService, private userService: UsersService,) {}
-  ngOnInit(): void {
-    // throw new Error("Method not implemented.");
-  }
+  constructor(private router: Router, private activatedRouter: ActivatedRoute,private service:AuthService, private userService: UsersService,
+    private dialog: MatDialog,) {}
+  ngOnInit(): void {}
 
     login() {
     const user = {email: this.email, password: this.password};
@@ -28,10 +29,29 @@ export class LoginComponent implements OnInit {
       console.log(data);
       this.service.setLogin('true');
      this.router.navigateByUrl('/form');
+
+     
     },
-    error => {
+     error => {
+       debugger;
             this.service.setLogin('false');
-             console.log(error);
+            if (error.status === 400) {
+              // some logic
+               this.messageError = JSON.stringify(error.error);
+              const dialogRef = this.dialog.open(AlertDialogComponent, {
+                data: {
+                  message: this.messageError,
+                  buttonText: {
+                    cancel: 'Aceptar'
+                  }
+                },
+              });
+
+              console.log('El error es',this.messageError);
+              ;
+           }
+            console.log('Error es:',error);
+            
            }
     );
     //eve.holt@reqres.in

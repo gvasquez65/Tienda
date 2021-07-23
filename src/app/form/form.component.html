@@ -1,9 +1,8 @@
-<h2>Formulario</h2>
+<!-- <h2>Formulario</h2> -->
 <!-- {{paises | json}} -->
 <div class="contenedor">
   <div class="elemento">
     <mat-form-field appearance="fill">
-      <!-- <mat-form-field class="mid-width"> -->
       <mat-label>Pais</mat-label>
       <mat-select placeholder="Seleccione un pais" [(ngModel)]="paisSeleccionado" name="item">
         <mat-option *ngFor="let item of paises" [value]="item.IdPais">
@@ -19,27 +18,24 @@
       <mat-label>Formatos</mat-label>
       <mat-select [(ngModel)]="formatosElejidos" [formControl]="formato" multiple>
         <mat-select-trigger>
-          {{formato.value ? formato.value[0].Descripcion : ''}}
+          {{formato.value ? formato.value[0]?.Descripcion : ''}}
           <span *ngIf="formato.value?.length > 1" class="example-additional-selection">
             (+{{formato.value.length - 1}} {{formato.value?.length === 2 ? 'otro' : 'otros'}})
           </span>
         </mat-select-trigger>
         <mat-option *ngFor="let item of formatos" [value]="item" (click)="seleccionaFormato(item)">
-          {{item.Descripcion}}
+          {{item?.Descripcion}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <!-- <p *ngFor="let dato of formatosElejidos">
-      {{dato.Descripcion}} {{dato.IdFormato}}
-    </p> -->
-
+  
   </div>
   <div class="elemento">
     <mat-form-field appearance="fill">
       <mat-label>Tiendas</mat-label>
       <mat-select [(ngModel)]="tiendasElejidas" [formControl]="tienda" multiple>
         <mat-select-trigger>
-          {{tienda.value ? tienda.value[0].Nombre : ''}}
+          {{tienda.value ? tienda.value[0]?.Nombre : ''}}
           <span *ngIf="tienda.value?.length > 1" class="example-additional-selection">
             (+{{tienda.value.length - 1}} {{tienda.value?.length === 4 ? 'otro' : 'otros'}})
           </span>
@@ -71,12 +67,24 @@
   </div>
 </div>
 
-<div class="row" *ngIf="cargando">
-  <h1 style="width: 100%; text-align: center;">Cargando...</h1>
+<div class="loading" *ngIf="loading">
+  <!-- <img src="/assets/images/spinner.gif" /> -->
+  <!-- <img src ="/assets/images/loader-gif-6.gif"/> -->
+  <div class="spinner-border text-primary"></div>
+
 </div>
 
-<div class="row" *ngIf="rows.length == 0 && !isDisabled">
-  <h1 style="width: 100%; text-align: center;">NO HAY DATOS!</h1>
+<div class="row" *ngIf="cargando && isDisabledEnvio">
+   <h1 style="width: 100%; text-align: center;color:steelblue;font-family: cursive;">Cargando...</h1>
+</div>
+
+<div class="loading" *ngIf="enviando">
+  <div class="spinner-border text-primary"></div>
+  <h1 style="width: 100%; text-align: center;color:steelblue;font-family: cursive;">Enviando...</h1>
+</div>
+
+<div class="row" *ngIf="rows.length == 0 && !isDisabledEnvio">
+  <h1 style="width: 100%; text-align: center; color:steelblue; ">NO HAY DATOS!</h1>
 </div>
 
 <div class="row" *ngIf="rows.length > 0">

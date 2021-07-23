@@ -1,13 +1,47 @@
 $whiteColor: white;
 $d55Color: #338bff;
 
-.container{
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
- 
+.example-container {
+  height: 1000px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+
+  .sidenav{
+    background-color: $d55Color;
+
+    .toolbar{
+      color: $d55Color;
+      background-color: $whiteColor;
+      display: flex;
+      justify-content: center;
+    }
+
+    /*
+    * Navigation
+    */
+    .mat-list-item a{
+      color: $whiteColor;
+      text-decoration: none;
+    }
+  }
+
+  .mat-sidenav-content{
+
+    .toolbar{
+      color: $whiteColor;
+      background-color: $d55Color;
+    }
+
+    .container-page{
+      padding: 15px;
+    }
+  }
+
+}
+
+.container-sidenav{
+  height: 1000px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  
   .sidenav{
     background-color: $d55Color;
 

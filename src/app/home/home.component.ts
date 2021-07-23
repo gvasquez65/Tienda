@@ -7,7 +7,7 @@ import { TaskService } from '../services/task.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  listaPaises: string[] = ['Colombia', 'Costa Rica', 'Ecuador', 'Guatemala','Mexico', 'Puerto Rico'];
+  // listaPaises: string[] = ['Colombia', 'Costa Rica', 'Ecuador', 'Guatemala','Mexico', 'Puerto Rico'];
 
   constructor(
     private taskService: TaskService)

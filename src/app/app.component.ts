@@ -1,5 +1,5 @@
 
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input, OnInit  } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { TaskService } from './services/task.service';
@@ -9,7 +9,7 @@ import { TaskService } from './services/task.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
     links = [
     {
@@ -37,8 +37,11 @@ export class AppComponent {
   constructor(
     private taskService: TaskService,
     private service: AuthService,
-    private router: Router
-  ) { }
+    private router: Router) { }
+  ngOnInit(): void {
+
+  }
+
   getAllTasks() {
     this.taskService.getAllTasks()
       .subscribe(tasks => {
@@ -59,7 +62,7 @@ export class AppComponent {
 
   logout() {
     this.service.logout();
-    this.router.navigate(['/logon']);
+    this.router.navigate(['/login']);
   }
 
 }

@@ -1,31 +1,28 @@
-<mat-sidenav-container class="container">
-  <!-- side-nav -->
-  
-  <mat-sidenav mode="side" opened class="sidenav">
-    <!-- <mat-toolbar class="toolbar">LEONISA</mat-toolbar> -->
-    <!-- Elements list menu -->
-    <!-- <mat-list>
-      <mat-list-item *ngFor="let item of links" [class.disabled]="isContentLoading" (click)="!isContentLoading && loadContent(item.url)" >   
-        <a matLine [routerLink]="item.url">{{ item.name }}</a>
-      </mat-list-item>
-    </mat-list> -->
-  </mat-sidenav>
-  <!-- side-nav-content -->
-  <mat-sidenav-content>
-    <mat-toolbar class="toolbar">
-      <mat-toolbar-row>
-        <span class='fill-remainig-space'> Interfaz Tiendas </span>
-        <span class='fill-remainig-space'> </span>
-        <a (click)="logout()" style="color:whitesmoke" routerLinkActive='active' >Log out</a>
-      </mat-toolbar-row>
-    </mat-toolbar>
-    <div class="container-page">
-     <router-outlet></router-outlet>
-     <!-- <app-login></app-login> -->
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
-<!-- <router-outlet></router-outlet> -->
+<!-- <nav class="navbar navbar-expand-sm bg-light">
+</nav>  -->
+<!-- <mat-sidenav-container class="example-container" autosize> -->
+  <mat-sidenav-container class="container-sidenav" autosize>
+    <!-- side-nav -->
+    <mat-sidenav mode="side" opened class="sidenav">
+    </mat-sidenav>
+    <!-- side-nav-content -->
+    <mat-sidenav-content>
+      <mat-toolbar class="toolbar">
+        <mat-toolbar-row>
+          <span class='fill-remainig-space'> Interfaz Tiendas </span>
+          <span class='fill-remainig-space'> </span>
+          <a (click)="logout()" style="color:whitesmoke" routerLinkActive='active' >Log out</a>
+        </mat-toolbar-row>
+      </mat-toolbar>
+      <div class="container-page">
+       <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+   
+
+
+
 
 
 
